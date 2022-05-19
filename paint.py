@@ -17,13 +17,13 @@ import torch.nn.functional as F
 
 # from notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
 
-JVM_PATH = '/Library/Java/JavaVirtualMachines/zulu-15.jdk/Contents/Home/bin/java'
+JVM_PATH_TEM = '/Library/Java/JavaVirtualMachines/zulu-15.jdk/Contents/Home/bin/java'
 
 doc = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
 
 
 def paint():
-    okt = Okt(jvmpath=JVM_PATH)
+    okt = Okt(jvmpath=JVM_PATH_TEM)
     tokenized_doc = okt.pos(doc)
     tokenized_nouns = ' '.join([word[0]
                                 for word in tokenized_doc if word[1] == 'Noun'])
