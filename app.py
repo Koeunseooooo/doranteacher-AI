@@ -6,12 +6,9 @@ from recommend import recommend
 from comment import comment
 
 app = Flask(__name__)
-app.debug = True
 # 보안관련
 CORS(app)
 api = Api(app)
-
-idx = 0
 
 
 @app.route('/dd')
@@ -33,8 +30,6 @@ class recommendAPI(Resource):
         return jsonify({"result": "get방식 from flask /recommend"})
 
     def post(self):
-        global idx
-        # idx += 2
         req = request.json.get('text')
         print(req)
         res = recommend(req)
@@ -50,8 +45,6 @@ class commentAPI(Resource):
         return jsonify({"result": "get방식 from flask /comment"})
 
     def post(self):
-        global idx
-        # idx += 2
         req = request.json.get('text')
         res = comment(req)
         # print(req)
@@ -60,4 +53,4 @@ class commentAPI(Resource):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
