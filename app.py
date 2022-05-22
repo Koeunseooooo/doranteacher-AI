@@ -5,7 +5,8 @@ from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from flask_cors import CORS
-from recommend import recommend
+from recommendAPI import recommendAPI
+from commentAPI import commentAPI
 
 app = Flask(__name__)
 app.debug = True
@@ -36,7 +37,7 @@ class recommendAPI(Resource):
         global idx
         idx += 2
         req = request.json.get('doc')
-        # recommend()
+        # recommendAPI()
         # print(req)
         result = jsonify({"idx": idx, "doc": req+"받음"})
         return result
@@ -51,7 +52,7 @@ class commentAPI(Resource):
         global idx
         idx += 2
         req = request.json.get('doc')
-        # comment()
+        # commentAPI()
         # print(req)
         result = jsonify({"idx": idx, "doc": req+"받음"})
         return result
