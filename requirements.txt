@@ -82,7 +82,7 @@ nbclient==0.6.3
 nbconvert==6.5.0
 nbformat==5.4.0
 nest-asyncio==1.5.5
-nltk==3.7
+# nltk==3.7
 notebook==6.4.11
 numpy==1.22.3
 oauthlib==3.2.0
@@ -137,7 +137,7 @@ sklearn==0.0
 smmap==5.0.0
 soupsieve==2.3.2.post1
 stack-data==0.2.0
-streamlit==1.1.0
+# streamlit==1.1.0
 tensorboard==2.3.0
 tensorboard-plugin-wit==1.8.1
 terminado==0.15.0
