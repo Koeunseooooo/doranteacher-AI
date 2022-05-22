@@ -131,11 +131,14 @@ def recommend(doc):
     img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
     print(type(img))
     print(img)
+
+    end = time.time()
+    print(f"{end - start:.5f} sec")
     return img
+
     # imgName = "test"
     # img.save('img/'+imgName+'.jpg', 'JPEG')
-    # end = time.time()
-    # print(f"{end - start:.5f} sec")
+
     # return "finishh"
 
 
