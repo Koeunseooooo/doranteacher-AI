@@ -24,19 +24,19 @@ def index():
 @api.route('/test')
 class testAPI(Resource):
     def get(self):
-        return jsonify({"result": "연결 잘 됨 from flask"})
+        return jsonify({"result": "테스트 완료 from flask"})
 
 
 @api.route('/recommend')
 class recommendAPI(Resource):
     def get(self):
-        img_arr = paint()
-        return jsonify({"result": img_arr})
+        return jsonify({"result": "get방식 from flask /recommend"})
 
     def post(self):
         global idx
         idx += 2
         req = request.json.get('doc')
+        # paint()
         # print(req)
         result = jsonify({"idx": idx, "doc": req+"받음"})
         return result
@@ -45,12 +45,15 @@ class recommendAPI(Resource):
 @api.route('/comment')
 class commentAPI(Resource):
     def get(self):
-        img_arr = paint()
-        return jsonify({"result": img_arr})
+        return jsonify({"result": "get방식 from flask /comment"})
 
     def post(self):
-        pass
-        # return result
+        global idx
+        idx += 2
+        req = request.json.get('doc')
+        # print(req)
+        result = jsonify({"idx": idx, "doc": req+"받음"})
+        return result
 
 
 if __name__ == '__main__':
