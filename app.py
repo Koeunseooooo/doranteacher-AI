@@ -1,13 +1,9 @@
 from urllib import response
 from flask import Flask, jsonify, request
 from flask_restx import Resource, Api, reqparse
-import sklearn
-from sklearn.datasets import load_iris
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
 from flask_cors import CORS
-from recommendAPI import recommendAPI
-from commentAPI import commentAPI
+from recommend import recommend
+from comment import comment
 
 app = Flask(__name__)
 app.debug = True
@@ -32,16 +28,20 @@ class testAPI(Resource):
 @api.route('/recommend')
 class recommendAPI(Resource):
     def get(self):
+        req = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다"
+        recommend(req)
         return jsonify({"result": "get방식 from flask /recommend"})
 
     def post(self):
         global idx
         # idx += 2
-        res = request.json.get('text')
-        # recommendAPI(res)
+        req = request.json.get('text')
+        print(req)
+        res = recommend(req)
+        print(res)
+        # result = req+"!!!"
         # print(req)
-        result = jsonify({"result": res+"보냄"})
-        return result
+        return jsonify({"result": "yes"})
 
 
 @api.route('/comment')
@@ -52,10 +52,10 @@ class commentAPI(Resource):
     def post(self):
         global idx
         # idx += 2
-        res = request.json.get('text')
-        # commentAPI(res)
+        req = request.json.get('text')
+        res = comment(req)
         # print(req)
-        result = jsonify({"result": res+"보냄"})
+        result = jsonify({"result": res})
         return result
 
 

@@ -38,7 +38,7 @@ def get_secret(setting, secrets=secrets):
 # JVM_PATH_TEM = '/Library/Java/JavaVirtualMachines/zulu-15.jdk/Contents/Home/bin/java'
 
 
-def recommendAPI(text):
+def recommend(text):
     start = time.time()
     okt = Okt()
     # okt = Okt(jvmpath=JVM_PATH_TEM)
@@ -127,7 +127,7 @@ def recommendAPI(text):
 
     end = time.time()
     print(f"{end - start:.5f} sec")
-    return img
+    return "hello"
 
     # imgName = "test"
     # img.save('img/'+imgName+'.jpg', 'JPEG')
@@ -185,6 +185,6 @@ def get_translate(text):
         print("Error Code:", rescode)
 
 
-if __name__ == '__main__':
-    text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
-    recommendAPI(text)
+# if __name__ == '__main__':
+#     text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
+#     recommendAPI(text)
