@@ -40,7 +40,7 @@ JVM_PATH_TEM = '/Library/Java/JavaVirtualMachines/zulu-15.jdk/Contents/Home/bin/
 doc = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
 
 
-def paint():
+def paint(doc):
     start = time.time()
     okt = Okt(jvmpath=JVM_PATH_TEM)
     tokenized_doc = okt.pos(doc)
@@ -129,12 +129,14 @@ def paint():
     grid = torchvision.utils.make_grid(images, nrow=4)
 
     img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
-    # img.show()
-    imgName = "test"
-    img.save('img/'+imgName+'.jpg', 'JPEG')
-    end = time.time()
-    print(f"{end - start:.5f} sec")
-    return "finishh"
+    print(type(img))
+    print(img)
+    return img
+    # imgName = "test"
+    # img.save('img/'+imgName+'.jpg', 'JPEG')
+    # end = time.time()
+    # print(f"{end - start:.5f} sec")
+    # return "finishh"
 
 
 def max_sum_sim(doc_embedding, candidate_embeddings, candidates, top_n, nr_candidates):
@@ -185,3 +187,7 @@ def get_translate(text):
         return trans_data
     else:
         print("Error Code:", rescode)
+
+
+if __name__ == '__main__':
+    paint()

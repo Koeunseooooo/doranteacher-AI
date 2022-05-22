@@ -13,6 +13,8 @@ app.debug = True
 CORS(app)
 api = Api(app)
 
+idx = 0
+
 
 @app.route('/dd')
 def index():
@@ -24,26 +26,31 @@ class testAPI(Resource):
     def get(self):
         return jsonify({"result": "연결 잘 됨 from flask"})
 
-    def post(self):
-        iris = load_iris()
-        parsed_request = request.json.get('content')
-        result = iris.feature_names
-        print(parsed_request)
-        return result
 
-
-@api.route('/paint-rec')
-class paintAPI(Resource):
+@api.route('/recommend')
+class recommendAPI(Resource):
     def get(self):
-        a = paint()
-        return jsonify({"result": a})
+        img_arr = paint()
+        return jsonify({"result": img_arr})
 
     def post(self):
-        iris = load_iris()
-        parsed_request = request.json.get('content')
-        result = iris.feature_names
-        print(parsed_request)
+        global idx
+        idx += 2
+        req = request.json.get('doc')
+        # print(req)
+        result = jsonify({"idx": idx, "doc": req+"받음"})
         return result
+
+
+@api.route('/comment')
+class commentAPI(Resource):
+    def get(self):
+        img_arr = paint()
+        return jsonify({"result": img_arr})
+
+    def post(self):
+        pass
+        # return result
 
 
 if __name__ == '__main__':
