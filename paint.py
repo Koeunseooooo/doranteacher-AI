@@ -19,7 +19,20 @@ import torch.nn.functional as F
 import time
 
 import os
+import json
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+secret_file = 'secrets.json'
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        return "error!"
 
 
 JVM_PATH_TEM = '/Library/Java/JavaVirtualMachines/zulu-15.jdk/Contents/Home/bin/java'
@@ -150,8 +163,8 @@ def max_sum_sim(doc_embedding, candidate_embeddings, candidates, top_n, nr_candi
 
 
 def get_translate(text):
-    client_id = "fcHxqnJMPFDLYxBfMzPi"  # <-- client_id 기입
-    client_secret = "3EfiPlikX7"  # <-- client_secret 기입
+    client_id = get_secret("PAPAGO_API_CLIENT_ID")  # <-- client_id 기입
+    client_secret = get_secret("PAPAGO_API_SECRET_KEY")  # <-- client_secret 기입
 
     data = {'text': text,
             'source': 'ko',

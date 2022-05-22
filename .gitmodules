@@ -1,3 +1,0 @@
-[submodule "rq-vae-transformer"]
-	path = rq-vae-transformer
-	url = git@github.com:kakaobrain/rq-vae-transformer.git
