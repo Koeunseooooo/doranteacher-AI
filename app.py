@@ -1,3 +1,4 @@
+from urllib import response
 from flask import Flask, jsonify, request
 from flask_restx import Resource, Api, reqparse
 import sklearn
@@ -35,11 +36,11 @@ class recommendAPI(Resource):
 
     def post(self):
         global idx
-        idx += 2
-        req = request.json.get('doc')
-        # recommendAPI()
+        # idx += 2
+        res = request.json.get('text')
+        # recommendAPI(res)
         # print(req)
-        result = jsonify({"idx": idx, "doc": req+"받음"})
+        result = jsonify({"result": res+"보냄"})
         return result
 
 
@@ -50,11 +51,11 @@ class commentAPI(Resource):
 
     def post(self):
         global idx
-        idx += 2
-        req = request.json.get('doc')
-        # commentAPI()
+        # idx += 2
+        res = request.json.get('text')
+        # commentAPI(res)
         # print(req)
-        result = jsonify({"idx": idx, "doc": req+"받음"})
+        result = jsonify({"result": res+"보냄"})
         return result
 
 
