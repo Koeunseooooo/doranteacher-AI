@@ -10,8 +10,8 @@ from paint import paint
 app = Flask(__name__)
 app.debug = True
 # 보안관련
-# CORS(app)
-# api = Api(app)
+CORS(app)
+api = Api(app)
 
 
 @app.route('/dd')
@@ -19,7 +19,7 @@ def index():
     return 'Hello'
 
 
-@app.route('/test')
+@api.route('/test')
 class testAPI(Resource):
     def get(self):
         return jsonify({"result": "연결 잘 됨 from flask"})
@@ -32,7 +32,7 @@ class testAPI(Resource):
         return result
 
 
-@app.route('/paint-rec')
+@api.route('/paint-rec')
 class paintAPI(Resource):
     def get(self):
         a = paint()
