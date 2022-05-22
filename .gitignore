@@ -1,6 +1,9 @@
 # model 폴더 무시
 model/
 
+# secret 파일 무시
+secrets.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

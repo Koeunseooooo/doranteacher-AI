@@ -1,4 +1,4 @@
-from rq_vae_transformer.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
+from rq.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
 import numpy as np
 import itertools
 import requests
