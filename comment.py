@@ -37,6 +37,7 @@ model = BartForConditionalGeneration.from_pretrained(
 
 
 def comment(text):
+    start = time.time()
     global model
     global tokenizer
     text = text.replace('\n', ' ')
@@ -66,6 +67,8 @@ def comment(text):
 
     result = return_similar_answer(input, train_data)
     print(result)
+    end = time.time()
+    print(f"{end - start:.5f} sec")
 
 
 def cos_sim(A, B):
