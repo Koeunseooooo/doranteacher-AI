@@ -1,4 +1,4 @@
-from notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
+from rq_vae_transformer.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
 import numpy as np
 import itertools
 import requests
@@ -64,8 +64,8 @@ def paint():
     print(trans)
     input_template = "a Picture containing a "+trans
 
-    vqvae_path = '../model/cc3m/stage1/model.pt'
-    model_path = '../model/cc3m/stage2/model.pt'
+    vqvae_path = 'model/cc3m/stage1/model.pt'
+    model_path = 'model/cc3m/stage2/model.pt'
 
     # load stage 1 model: RQ-VAE
     model_vqvae, _ = load_model(vqvae_path)
@@ -171,7 +171,3 @@ def get_translate(text):
         return trans_data
     else:
         print("Error Code:", rescode)
-
-
-if __name__ == '__main__':
-    paint()
