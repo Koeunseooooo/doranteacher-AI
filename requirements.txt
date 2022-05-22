@@ -21,7 +21,7 @@ cachetools==4.2.4
 certifi==2022.5.18.1
 cffi==1.15.0
 charset-normalizer==2.0.12
-click==7.1.2
+# click==7.1.2
 clip @ git+https://github.com/openai/CLIP.git@b46f5ac7587d2e1862f8b7b1573179d80dcdd620
 cycler==0.11.0
 datadings==3.4.5
