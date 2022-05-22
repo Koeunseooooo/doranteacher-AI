@@ -130,7 +130,8 @@ def paint():
 
     img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
     # img.show()
-    img.save('test.jpg', 'JPEG')
+    imgName = "test"
+    img.save('img/'+imgName+'.jpg', 'JPEG')
     end = time.time()
     print(f"{end - start:.5f} sec")
     return "finishh"
