@@ -22,6 +22,7 @@ certifi==2022.5.18.1
 cffi==1.15.0
 charset-normalizer==2.0.12
 clip @ git+https://github.com/openai/CLIP.git@b46f5ac7587d2e1862f8b7b1573179d80dcdd620
+click ==8.0
 cycler==0.11.0
 datadings==3.4.5
 debugpy==1.6.0
@@ -136,7 +137,7 @@ sklearn==0.0
 smmap==5.0.0
 soupsieve==2.3.2.post1
 stack-data==0.2.0
-streamlit==1.1.0
+# streamlit==1.1.0
 tensorboard==2.3.0
 tensorboard-plugin-wit==1.8.1
 terminado==0.15.0
