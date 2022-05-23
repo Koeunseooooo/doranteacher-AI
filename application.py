@@ -42,6 +42,7 @@ class recommendAPI(Resource):
 @api.route('/comment')
 class commentAPI(Resource):
     def get(self):
+        res = comment("hello")
         return jsonify({"result": "get방식 from flask /comment"})
 
     def post(self):
