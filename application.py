@@ -5,13 +5,13 @@ from flask_cors import CORS
 from recommend import recommend
 from comment import comment
 
-app = Flask(__name__)
+application = Flask(__name__)
 # 보안관련
-CORS(app)
-api = Api(app)
+CORS(application)
+api = Api(application)
 
 
-@app.route('/dd')
+@application .route('/dd')
 def index():
     return 'Hello'
 
@@ -53,4 +53,4 @@ class commentAPI(Resource):
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
