@@ -76,6 +76,6 @@ def return_comment(text, chat_model, train_data):
     return train_data.loc[train_data['score'].idxmax()]['A']
 
 
-if __name__ == '__main__':
-    text = "오늘은 도서관에 가서 책을 읽었다. 졸렸지만 책 한 권을 다 읽어서 뿌듯했다."
-    print(comment(text))
+# if __name__ == '__main__':
+#     text = "오늘은 도서관에 가서 책을 읽었다. 졸렸지만 책 한 권을 다 읽어서 뿌듯했다."
+#     print(comment(text))

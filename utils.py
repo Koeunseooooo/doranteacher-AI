@@ -1,3 +1,4 @@
+import tokenizers
 from transformers import BartForConditionalGeneration
 from transformers import PreTrainedTokenizerFast
 from rq.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
@@ -10,6 +11,11 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 import time
+
+global tokenizer
+global sum_model
+global chat_model
+global train_data
 
 
 def utils():
@@ -28,5 +34,5 @@ def utils():
         lambda row: chat_model.encode(row.Q), axis=1)
 
     end = time.time()
-    print("comment 끝")
+    print("utils 끝")
     print(f"{end - start:.5f} sec")
