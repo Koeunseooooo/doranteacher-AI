@@ -9,37 +9,20 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 import numpy as np
-import pandas as pd
 from numpy import char, dot, ndarray
 from numpy.linalg import norm
-import urllib.request
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
-import transformers
-import yaml
 import torch
-import torchvision
-import clip
 import torch.nn.functional as F
 import time
-import io
 from utils import *
 
 import os
 import json
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
-
-# def load_models():
-#     tokenizer = PreTrainedTokenizerFast.from_pretrained(
-#         'digit82/kobart-summarization')
-#     sum_model = BartForConditionalGeneration.from_pretrained(
-#         'digit82/kobart-summarization')
-#     chat_model = SentenceTransformer(
-#         'xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
-#     return tokenizer, sum_model, chat_model
 
 
 def comment(text):
@@ -74,8 +57,3 @@ def return_comment(text, chat_model, train_data):
     train_data['score'] = train_data.apply(
         lambda x: cos_sim(x['embedding'], embedding), axis=1)
     return train_data.loc[train_data['score'].idxmax()]['A']
-
-
-# if __name__ == '__main__':
-#     text = "오늘은 도서관에 가서 책을 읽었다. 졸렸지만 책 한 권을 다 읽어서 뿌듯했다."
-#     print(comment(text))

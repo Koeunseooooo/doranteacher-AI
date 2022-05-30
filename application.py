@@ -4,20 +4,8 @@ from flask_restx import Resource, Api, reqparse
 from flask_cors import CORS
 from recommend import recommend
 from comment import comment
-import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
-import transformers
-import yaml
-import torch
-import torchvision
-import clip
-import torch.nn.functional as F
-import time
-import io
 import os
-import json
-from utils import *
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 application = Flask(__name__)
@@ -55,7 +43,6 @@ class recommendAPI(Resource):
 @api.route('/comment')
 class commentAPI(Resource):
     def get(self):
-        # res = comment("hello")
         return jsonify({"result": "get방식 from flask /comment"})
 
     def post(self):
@@ -66,5 +53,4 @@ class commentAPI(Resource):
 
 
 if __name__ == '__main__':
-    utils()
-    application.run(host='0.0.0.0', port='3000')
+    application.run(host='0.0.0.0', port='5000')
