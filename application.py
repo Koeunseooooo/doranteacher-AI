@@ -4,6 +4,21 @@ from flask_restx import Resource, Api, reqparse
 from flask_cors import CORS
 from recommend import recommend
 from comment import comment
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+import transformers
+import yaml
+import torch
+import torchvision
+import clip
+import torch.nn.functional as F
+import time
+import io
+import os
+import json
+from utils import *
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 application = Flask(__name__)
 # 보안관련
@@ -51,4 +66,5 @@ class commentAPI(Resource):
 
 
 if __name__ == '__main__':
+    utils()
     application.run(host='0.0.0.0', port='5000')

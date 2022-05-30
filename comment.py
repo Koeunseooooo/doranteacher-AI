@@ -25,24 +25,25 @@ import clip
 import torch.nn.functional as F
 import time
 import io
+from utils import *
 
 import os
 import json
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
-def load_models():
-    tokenizer = PreTrainedTokenizerFast.from_pretrained(
-        'digit82/kobart-summarization')
-    sum_model = BartForConditionalGeneration.from_pretrained(
-        'digit82/kobart-summarization')
-    chat_model = SentenceTransformer(
-        'xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
-    return tokenizer, sum_model, chat_model
+# def load_models():
+#     tokenizer = PreTrainedTokenizerFast.from_pretrained(
+#         'digit82/kobart-summarization')
+#     sum_model = BartForConditionalGeneration.from_pretrained(
+#         'digit82/kobart-summarization')
+#     chat_model = SentenceTransformer(
+#         'xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
+#     return tokenizer, sum_model, chat_model
 
 
 def comment(text):
-    tokenizer, sum_model, chat_model = load_models()
+    print("comment 시작")
     start = time.time()
 
     text = text.replace('\n', ' ')
@@ -56,13 +57,10 @@ def comment(text):
     text = tokenizer.decode(
         summary_ids.squeeze().tolist(), skip_special_tokens=True)
     print(text)
-    train_data = pd.read_csv('ChatBotData.csv')
 
-    # 병목지점..(5-6분 소요)
-    train_data['embedding'] = train_data.apply(
-        lambda row: chat_model.encode(row.Q), axis=1)
     result = return_comment(text,  chat_model, train_data)
     end = time.time()
+    print("comment 끝")
     print(f"{end - start:.5f} sec")
     return result
 
@@ -78,6 +76,6 @@ def return_comment(text, chat_model, train_data):
     return train_data.loc[train_data['score'].idxmax()]['A']
 
 
-# if __name__ == '__main__':
-#     text = "오늘은 도서관에 가서 책을 읽었다. 졸렸지만 책 한 권을 다 읽어서 뿌듯했다."
-#     print(comment(text))
+if __name__ == '__main__':
+    text = "오늘은 도서관에 가서 책을 읽었다. 졸렸지만 책 한 권을 다 읽어서 뿌듯했다."
+    print(comment(text))
