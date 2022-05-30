@@ -59,25 +59,19 @@ def comment(text):
     train_data = pd.read_csv('ChatBotData.csv')
 
     # 병목지점..(5-6분 소요)
-    embadding(train_data, chat_model)
-    result = return_comment(text, train_data, chat_model)
-    print(result)
+    train_data['embedding'] = train_data.apply(
+        lambda row: chat_model.encode(row.Q), axis=1)
+    result = return_comment(text,  chat_model, train_data)
     end = time.time()
     print(f"{end - start:.5f} sec")
     return result
-
-
-def embadding(train_data, chat_model):
-    train_data['embedding'] = train_data.apply(
-        lambda row: chat_model.encode(row.Q), axis=1)
-    return train_data['embedding']
 
 
 def cos_sim(A, B):
     return dot(A, B)/(norm(A)*norm(B))
 
 
-def return_comment(text, train_data, chat_model):
+def return_comment(text, chat_model, train_data):
     embedding = chat_model.encode(text)
     train_data['score'] = train_data.apply(
         lambda x: cos_sim(x['embedding'], embedding), axis=1)
@@ -86,4 +80,4 @@ def return_comment(text, train_data, chat_model):
 
 # if __name__ == '__main__':
 #     text = "오늘은 도서관에 가서 책을 읽었다. 졸렸지만 책 한 권을 다 읽어서 뿌듯했다."
-#     commentAPI(text)
+#     print(comment(text))
