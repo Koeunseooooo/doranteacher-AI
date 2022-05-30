@@ -22,7 +22,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 application = Flask(__name__)
 # 보안관련
-# CORS(application)
+CORS(application)
 api = Api(application)
 
 
@@ -67,4 +67,4 @@ class commentAPI(Resource):
 
 if __name__ == '__main__':
     utils()
-    application.run(host='0.0.0.0', port='5000')
+    application.run(host='0.0.0.0', port='3000')
