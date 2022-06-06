@@ -5,7 +5,6 @@ from flask_cors import CORS
 from recommend import recommend
 from comment import comment
 import os
-
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 application = Flask(__name__)
@@ -52,5 +51,17 @@ class commentAPI(Resource):
         return result
 
 
+@api.route('/correct')
+class correctAPI(Resource):
+    def get(self):
+        return jsonify({"result": "get방식 from flask /correct"})
+
+    def post(self):
+        req = request.json.get('text')
+        res = correct(req)
+        result = jsonify({"result": res})
+        return result
+
+
 if __name__ == '__main__':
-    application.run(host='0.0.0.0', port='5000')
+    application.run(host='0.0.0.0', port='3000')
