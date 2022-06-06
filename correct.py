@@ -6,7 +6,7 @@ text = '''은서내 집에 가서 햄버거를 만들었다.
 치즈도 많이 올렸다. 
 내일은 내가 잘하는 짜파게티를 해주기로 했다. 맛있겠다!'''
 
-# result = spell_checker.check(text)
-# pprint.pprint(result.as_dict())
+result = spell_checker.check(text)
+pprint.pprint(result.as_dict())
 
 # def correct(text):
