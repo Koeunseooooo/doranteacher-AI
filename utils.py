@@ -18,10 +18,10 @@ sum_model = BartForConditionalGeneration.from_pretrained(
 chat_model = SentenceTransformer(
     'xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
 
-# train_data = pd.read_csv('ChatBotData.csv')
-# # 병목지점..(5-6분 소요)
-# train_data['embedding'] = train_data.apply(
-#     lambda row: chat_model.encode(row.Q), axis=1)
+train_data = pd.read_csv('ChatBotData.csv')
+# 병목지점..(5-6분 소요)
+train_data['embedding'] = train_data.apply(
+    lambda row: chat_model.encode(row.Q), axis=1)
 
 end = time.time()
 print("utils 끝")

@@ -6,6 +6,7 @@ from konlpy.tag import Okt
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
+from flask import send_file
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -40,7 +41,7 @@ def get_secret(setting, secrets=secrets):
 
 
 def recommend(text):
-    text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다"
+    # text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다"
     start = time.time()
     okt = Okt()
     # okt = Okt(jvmpath=JVM_PATH_TEM)
@@ -72,9 +73,14 @@ def recommend(text):
                 candidates, top_n=5, nr_candidates=5)
     keyword = max_sum_sim(doc_embedding, candidate_embeddings,
                           candidates, top_n=5, nr_candidates=5)[0]
-    trans = get_translate(keyword)
+
+    key = []
+    key = keyword.split(' ')
+    print(key[0], key[1])
+
+    trans = get_translate(key)
     print(trans)
-    input_template = "a Picture containing a "+trans
+    input_template = "a Picture of "+trans
 
     vqvae_path = 'model/cc3m/stage1/model.pt'
     model_path = 'model/cc3m/stage2/model.pt'
@@ -115,12 +121,11 @@ def recommend(text):
                                            top_k,
                                            top_p,
                                            )
-    num_visualize_samples = 12
+    num_visualize_samples = 8
     images = [pixel.cpu().numpy() * 0.5 + 0.5 for pixel in pixels]
     images = torch.from_numpy(np.array(images[:num_visualize_samples]))
     images = torch.clamp(images, 0, 1)
     grid = torchvision.utils.make_grid(images, nrow=4)
-    print(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
     img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
     print(type(img))
     print(img)
@@ -131,8 +136,10 @@ def recommend(text):
 
     imgName = "test"
     img.save('img/'+imgName+'.jpg', 'JPEG')
+    file_path = 'img/'+imgName+'.jpg'
 
-    return "finishh"
+    return send_file(file_path, mimetype='image/jpg', as_attachment=True)
+    # return "finishh"
 
 
 def max_sum_sim(doc_embedding, candidate_embeddings, candidates, top_n, nr_candidates):
