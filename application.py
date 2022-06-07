@@ -4,6 +4,7 @@ from flask_restx import Resource, Api, reqparse
 from flask_cors import CORS
 from recommend import recommend
 from comment import comment
+from correct import correct
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -34,9 +35,8 @@ class recommendAPI(Resource):
     def post(self):
         req = request.json.get('text')
         print(req)
-        res = recommend(req)
-        print(res)
-        return jsonify({"result": "yes"})
+        # recommend(req) byte
+        return recommend(req)
 
 
 @api.route('/comment')
@@ -58,8 +58,9 @@ class correctAPI(Resource):
 
     def post(self):
         req = request.json.get('text')
-        res = correct(req)
-        result = jsonify({"result": res})
+        original, corrected = correct(req)
+        result = jsonify(
+            {"original": original, "corrected": corrected})
         return result
 
 

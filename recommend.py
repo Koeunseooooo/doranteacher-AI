@@ -128,6 +128,7 @@ def recommend(text):
     grid = torchvision.utils.make_grid(images, nrow=4)
     img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
     print(type(img))
+
     print(img)
 
     end = time.time()
@@ -172,7 +173,7 @@ def get_translate(text):
     client_id = get_secret("PAPAGO_API_CLIENT_ID")  # <-- client_id 기입
     client_secret = get_secret("PAPAGO_API_SECRET_KEY")  # <-- client_secret 기입
 
-    data = {'text': text,
+    data = {'text': text[0]+" "+text[1],
             'source': 'ko',
             'target': 'en'}
 
@@ -192,6 +193,6 @@ def get_translate(text):
         print("Error Code:", rescode)
 
 
-if __name__ == '__main__':
-    text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
-    recommend(text)
+# if __name__ == '__main__':
+#     text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
+#     recommend(text)
