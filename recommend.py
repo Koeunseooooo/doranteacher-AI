@@ -7,6 +7,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 from flask import send_file
+from upload_image import send_image_to_s3
+from get_image_url import get_image_url
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,9 +37,6 @@ def get_secret(setting, secrets=secrets):
         return secrets[setting]
     except KeyError:
         return "error!"
-
-
-# JVM_PATH_TEM = '/Library/Java/JavaVirtualMachines/zulu-15.jdk/Contents/Home/bin/java'
 
 
 def recommend(text):
@@ -127,19 +126,15 @@ def recommend(text):
     images = torch.clamp(images, 0, 1)
     grid = torchvision.utils.make_grid(images, nrow=4)
     img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
-    print(type(img))
-
-    print(img)
-
     end = time.time()
     print(f"{end - start:.5f} sec")
-    # return "hello"
 
-    imgName = "test"
+    imgName = "recommend"
     img.save('img/'+imgName+'.jpg', 'JPEG')
-    file_path = 'img/'+imgName+'.jpg'
+    send_image_to_s3(imgName)
+    res = get_image_url(imgName)
+    return res
 
-    return send_file(file_path, mimetype='image/jpg', as_attachment=True)
     # return "finishh"
 
 
