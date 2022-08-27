@@ -1,6 +1,5 @@
 from transformers import BartForConditionalGeneration
 from transformers import PreTrainedTokenizerFast
-from rq.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
 import numpy as np
 import itertools
 import requests

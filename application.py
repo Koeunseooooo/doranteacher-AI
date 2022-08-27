@@ -2,7 +2,6 @@ from urllib import response
 from flask import Flask, jsonify, request
 from flask_restx import Resource, Api, reqparse
 from flask_cors import CORS
-from recommend import recommend
 from comment import comment
 from correct import correct
 from test import test
