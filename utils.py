@@ -1,7 +1,6 @@
 import tokenizers
 from transformers import BartForConditionalGeneration
 from transformers import PreTrainedTokenizerFast
-from rq.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
 import pandas as pd
 from konlpy.tag import Okt
 from sklearn.feature_extraction.text import CountVectorizer

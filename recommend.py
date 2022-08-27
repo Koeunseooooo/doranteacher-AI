@@ -85,10 +85,10 @@ def recommend(text):
     model_path = 'model/cc3m/stage2/model.pt'
 
     # load stage 1 model: RQ-VAE
-    model_vqvae, _ = load_model(vqvae_path)
+    # model_vqvae, _ = load_model(vqvae_path)
 
     # load stage 2 model: RQ-Transformer
-    model_ar, config = load_model(model_path, ema=False)
+    # model_ar, config = load_model(model_path, ema=False)
 
     # GPU -> CPU
     model_ar = model_ar.eval()
@@ -99,8 +99,8 @@ def recommend(text):
     model_clip = model_clip.eval()
 
     # prepare text encoder to tokenize natual languages
-    text_encoder = TextEncoder(tokenizer_name=config.dataset.txt_tok_name,
-                               context_length=config.dataset.context_length)
+    # text_encoder = TextEncoder(tokenizer_name=config.dataset.txt_tok_name,
+    #                            context_length=config.dataset.context_length)
 
     text_prompts = input_template  # your own text
     num_samples = 64
@@ -109,17 +109,17 @@ def recommend(text):
     top_p = 0.95
 
     # 병목지점..(5-6분 소요)
-    pixels = get_generated_images_by_texts(model_ar,
-                                           model_vqvae,
-                                           text_encoder,
-                                           model_clip,
-                                           preprocess_clip,
-                                           text_prompts,
-                                           num_samples,
-                                           temperature,
-                                           top_k,
-                                           top_p,
-                                           )
+    # pixels = get_generated_images_by_texts(model_ar,
+    #                                        model_vqvae,
+    #                                        text_encoder,
+    #                                        model_clip,
+    #                                        preprocess_clip,
+    #                                        text_prompts,
+    #                                        num_samples,
+    #                                        temperature,
+    #                                        top_k,
+    #                                        top_p,
+    #                                        )
     num_visualize_samples = 8
     images = [pixel.cpu().numpy() * 0.5 + 0.5 for pixel in pixels]
     images = torch.from_numpy(np.array(images[:num_visualize_samples]))
