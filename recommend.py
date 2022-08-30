@@ -89,7 +89,7 @@ def textToImageAPI(text):
     data={
         'text': text,
     },
-    headers={'api-key': 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K'}
+    headers={'api-key': '5e2df0ad-409e-450c-95a1-fb0e9b31fe01'}
     )
     # print(r.json())
     return r.json()
@@ -144,6 +144,6 @@ def get_translate(text):
         print("Error Code:", rescode)
 
 
-if __name__ == '__main__':
-    text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
-    recommend(text)
+# if __name__ == '__main__':
+#     text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
+#     recommend(text)
