@@ -71,9 +71,9 @@ class correctAPI(Resource):
     def post(self):
         req = request.json.get('text')
         print(req)
-        original, corrected = correct(req)
+        original, corrected, correct_string = correct(req)
         result = jsonify(
-            {"original": original, "corrected": corrected})
+            {"original": original, "corrected": corrected, "correct_string": correct_string})
 
         return result
 
