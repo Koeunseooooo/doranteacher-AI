@@ -1,4 +1,3 @@
-from rq.notebooks.notebook_utils import TextEncoder, load_model, get_generated_images_by_texts
 import numpy as np
 import itertools
 import requests
@@ -6,19 +5,16 @@ from konlpy.tag import Okt
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
-from flask import send_file
-from upload_image import send_image_to_s3
-from get_image_url import get_image_url
+
 
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import transformers
 import yaml
-import torch
-import torchvision
-import clip
-import torch.nn.functional as F
+# import torch
+# import torchvision
+# import torch.nn.functional as F
 import time
 from utils import *
 
@@ -66,77 +62,37 @@ def recommend(text):
     top_n = 5
     distances = cosine_similarity(doc_embedding, candidate_embeddings)
     keywords = [candidates[index] for index in distances.argsort()[0][-top_n:]]
-    print(keywords)
+    print(keywords,1)
 
     max_sum_sim(doc_embedding, candidate_embeddings,
                 candidates, top_n=5, nr_candidates=5)
     keyword = max_sum_sim(doc_embedding, candidate_embeddings,
                           candidates, top_n=5, nr_candidates=5)[0]
+    print(keyword,2)
 
     key = []
     key = keyword.split(' ')
-    print(key[0], key[1])
+    print(key)
+    input_text = get_translate(key[0]+' '+key[2])
+    print(input_text)
 
-    trans = get_translate(key)
-    print(trans)
-    input_template = "a Picture of "+trans
-
-    vqvae_path = 'model/cc3m/stage1/model.pt'
-    model_path = 'model/cc3m/stage2/model.pt'
-
-    # load stage 1 model: RQ-VAE
-    # model_vqvae, _ = load_model(vqvae_path)
-
-    # load stage 2 model: RQ-Transformer
-    # model_ar, config = load_model(model_path, ema=False)
-
-    # GPU -> CPU
-    model_ar = model_ar.eval()
-    model_vqvae = model_vqvae.eval()
-
-    # CLIP
-    model_clip, preprocess_clip = clip.load("ViT-B/32", device='cpu')
-    model_clip = model_clip.eval()
-
-    # prepare text encoder to tokenize natual languages
-    # text_encoder = TextEncoder(tokenizer_name=config.dataset.txt_tok_name,
-    #                            context_length=config.dataset.context_length)
-
-    text_prompts = input_template  # your own text
-    num_samples = 64
-    temperature = 1.0
-    top_k = 1024
-    top_p = 0.95
-
-    # 병목지점..(5-6분 소요)
-    # pixels = get_generated_images_by_texts(model_ar,
-    #                                        model_vqvae,
-    #                                        text_encoder,
-    #                                        model_clip,
-    #                                        preprocess_clip,
-    #                                        text_prompts,
-    #                                        num_samples,
-    #                                        temperature,
-    #                                        top_k,
-    #                                        top_p,
-    #                                        )
-    num_visualize_samples = 8
-    images = [pixel.cpu().numpy() * 0.5 + 0.5 for pixel in pixels]
-    images = torch.from_numpy(np.array(images[:num_visualize_samples]))
-    images = torch.clamp(images, 0, 1)
-    grid = torchvision.utils.make_grid(images, nrow=4)
-    img = Image.fromarray(np.uint8(grid.numpy().transpose([1, 2, 0])*255))
+    result = textToImageAPI(input_text)
     end = time.time()
     print(f"{end - start:.5f} sec")
+    return result
 
-    imgName = "recommend"
-    img.save('img/'+imgName+'.jpg', 'JPEG')
-    send_image_to_s3(imgName)
-    res = get_image_url(imgName)
-    return res
 
-    # return "finishh"
-
+def textToImageAPI(text):
+    
+    r = requests.post(
+    "https://api.deepai.org/api/text2img",
+    data={
+        'text': text,
+    },
+    headers={'api-key': 'quickstart-QUdJIGlzIGNvbWluZy4uLi4K'}
+    )
+    # print(r.json())
+    return r.json()
 
 def max_sum_sim(doc_embedding, candidate_embeddings, candidates, top_n, nr_candidates):
     # 문서와 각 키워드들 간의 유사도
@@ -188,6 +144,6 @@ def get_translate(text):
         print("Error Code:", rescode)
 
 
-# if __name__ == '__main__':
-#     text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
-#     recommend(text)
+if __name__ == '__main__':
+    text = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다!"
+    recommend(text)

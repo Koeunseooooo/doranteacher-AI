@@ -4,6 +4,7 @@ from flask_restx import Resource, Api, reqparse
 from flask_cors import CORS
 from comment import comment
 from correct import correct
+from recommend import recommend
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -33,8 +34,8 @@ class recommendAPI(Resource):
 
     def post(self):
         req = request.json.get('text')
-        res = recommend(req)
-        result = jsonify({"result": res})
+        result = recommend(req)
+        # result = jsonify({"result": res})
         return result
 
 
@@ -43,7 +44,7 @@ class testAPI(Resource):
     def get(self):
         # req = "내가 제일 좋아하는 음식은 햄버거이다. 그래서 오늘은 햄버거가게에 가서 햄버거를 먹었다. 감자튀김도 들어있는 햄버거세트로 먹었다. 정말 배부르고 맛있었다. 매일 먹고싶지만 그러면 체중이 늘어나겠지? 그래도 매일 매일 먹고싶다"
         # recommend(req)
-        return jsonify({"result": "get방식 from flask /recommend"})
+        return jsonify({"result": "get방식 from flask /test"})
 
     def post(self):
         req = request.json.get('text')
@@ -51,29 +52,30 @@ class testAPI(Resource):
         result = jsonify({"result": res})
         return result
 
-# @api.route('/comment')
-# class commentAPI(Resource):
-#     def get(self):
-#         return jsonify({"result": "get방식 from flask /comment"})
+@api.route('/comment')
+class commentAPI(Resource):
+    def get(self):
+        return jsonify({"result": "get방식 from flask /comment"})
 
-#     def post(self):
-#         req = request.json.get('text')
-#         res = comment(req)
-#         return res
+    def post(self):
+        req = request.json.get('text')
+        res = comment(req)
+        return res
 
 
-# @api.route('/correct')
-# class correctAPI(Resource):
-#     def get(self):
-#         return jsonify({"result": "get방식 from flask /correct"})
+@api.route('/correct')
+class correctAPI(Resource):
+    def get(self):
+        return jsonify({"result": "get방식 from flask /correct"})
 
-#     def post(self):
-#         req = request.json.get('text')
-#         original, corrected = correct(req)
-#         result = jsonify(
-#             {"original": original, "corrected": corrected})
+    def post(self):
+        req = request.json.get('text')
+        print(req)
+        original, corrected = correct(req)
+        result = jsonify(
+            {"original": original, "corrected": corrected})
 
-#         return result
+        return result
 
 
 if __name__ == '__main__':

@@ -21,13 +21,13 @@ def correct(text):
         corrected.append(before)
         corrected.append("#"+error)
     corrected.append(new)
-    correct = checked
 
+    # correct = checked
     # print(original)  # 문자열
     # pprint.pprint(corrected)  # 배열
     # print(result)  # 문자열
 
-    return original, corrected, correct
+    return original, corrected
 
 
 # pprint.pprint(correct(text))
